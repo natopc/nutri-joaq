@@ -8,8 +8,7 @@ import {
   ArrowUp,
   ArrowDown,
   Minus,
-  History,
-  Database
+  History
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -20,7 +19,6 @@ import './Dashboard.css';
 export default function Dashboard() {
   const { canWrite } = useAuth();
   const dashboardRef = useRef<HTMLDivElement>(null);
-  const [migrating, setMigrating] = useState(false);
 
   const [unitsData, setUnitsData] = useState<any[]>([]);
   const [pendenciesData, setPendenciesData] = useState<any>({});
@@ -138,65 +136,6 @@ export default function Dashboard() {
     }
   };
 
-  const handleMigrateData = async () => {
-    if (!window.confirm('Tem certeza que deseja migrar os dados locais para a Nuvem? Isso pode sobrescrever dados existentes com o mesmo ID.')) return;
-    
-    setMigrating(true);
-    try {
-      // 1. Migrar Unidades
-      const savedUnits = localStorage.getItem('nutriJoaq_units');
-      if (savedUnits) {
-        const units = JSON.parse(savedUnits);
-        for (const u of units) {
-          await setDoc(doc(db, 'units', String(u.id)), u);
-        }
-      }
-
-      // 2. Migrar Relatórios de Documentação Obrigatória
-      const savedDocs = localStorage.getItem('nutriJoaq_docs_byUnit');
-      if (savedDocs) {
-        const docs = JSON.parse(savedDocs);
-        for (const key of Object.keys(docs)) {
-          await setDoc(doc(db, 'reports_docs', String(key)), docs[key]);
-        }
-      }
-
-      // 3. Migrar Relatórios de Pendências
-      const savedPend = localStorage.getItem('nutriJoaq_pendencies_byUnit');
-      if (savedPend) {
-        const pends = JSON.parse(savedPend);
-        for (const key of Object.keys(pends)) {
-          await setDoc(doc(db, 'reports_pendencies', String(key)), pends[key]);
-        }
-      }
-
-      // 4. Migrar Agenda (Treinamentos)
-      const savedAgenda = localStorage.getItem('nutriJoaq_agenda');
-      if (savedAgenda) {
-        const agenda = JSON.parse(savedAgenda);
-        for (let i = 0; i < agenda.length; i++) {
-          const item = agenda[i];
-          await setDoc(doc(db, 'trainings', String(i + '-' + item.date)), item);
-        }
-      }
-
-      // 5. Migrar Modelos de Relatórios
-      const savedReports = localStorage.getItem('nutriJoaq_reports');
-      if (savedReports) {
-        const reports = JSON.parse(savedReports);
-        for (const r of reports) {
-          await setDoc(doc(db, 'report_templates', String(r.id)), r);
-        }
-      }
-
-      alert('Migração concluída com sucesso!');
-    } catch (err) {
-      console.error('Erro na migração:', err);
-      alert('Ocorreu um erro na migração. Olhe o console para detalhes.');
-    } finally {
-      setMigrating(false);
-    }
-  };
 
   const kpis = [
     { title: "Média de Conformidade", value: `${averageCompliance}%`, trend: "Atual", icon: <TrendingUp size={24} />, status: averageCompliance >= 90 ? "success" : averageCompliance >= 80 ? "warning" : "danger" },
@@ -212,10 +151,6 @@ export default function Dashboard() {
           <p className="page-subtitle">Acompanhamento central de {unitsData.length} UANs ativas.</p>
         </div>
         <div className="flex gap-2">
-          <button className="btn-secondary" onClick={handleMigrateData} disabled={migrating}>
-            <Database size={18} />
-            {migrating ? 'Migrando...' : 'Migrar Dados Antigos'}
-          </button>
           {canWrite && (
             <button className="btn-secondary" onClick={downloadPDF}>
               <Download size={18} />
