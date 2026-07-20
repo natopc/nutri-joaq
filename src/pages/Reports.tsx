@@ -16,7 +16,7 @@ export default function Reports() {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'report_templates'), (snapshot) => {
-      const reportsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const reportsData = snapshot.docs.map(doc => ({ ...(doc.data() as any), id: doc.id }));
       setReports(reportsData);
       setLoading(false);
     });
@@ -43,14 +43,19 @@ export default function Reports() {
 
   const handleAddReport = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editReport) {
-      await updateDoc(doc(db, 'report_templates', editReport.id), newReport);
-    } else {
-      await addDoc(collection(db, 'report_templates'), { ...newReport, fields: 0 });
+    try {
+      if (editReport) {
+        await updateDoc(doc(db, 'report_templates', String(editReport.id)), newReport);
+      } else {
+        await addDoc(collection(db, 'report_templates'), { ...newReport, fields: 0 });
+      }
+      setShowAddModal(false);
+      setNewReport({ title: '', desc: '' });
+      setEditReport(null);
+    } catch (error) {
+      console.error(error);
+      alert('Ocorreu um erro ao salvar o relatório.');
     }
-    setShowAddModal(false);
-    setNewReport({ title: '', desc: '' });
-    setEditReport(null);
   };
 
   const handleDeleteReport = async (id: string) => {
