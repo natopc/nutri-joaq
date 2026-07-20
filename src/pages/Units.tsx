@@ -15,7 +15,7 @@ export default function Units() {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'units'), (snapshot) => {
-      const unitsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const unitsData = snapshot.docs.map(doc => ({ ...(doc.data() as any), id: doc.id }));
       unitsData.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       setUnits(unitsData);
       setLoading(false);

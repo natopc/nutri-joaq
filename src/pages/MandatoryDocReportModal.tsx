@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DownloadCloud, ChefHat, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { DownloadCloud, X } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import './MandatoryDocReportModal.css';

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Folder, FileText, UploadCloud, Search, Download, MoreVertical, Plus, Trash2, Edit2, Loader2, ExternalLink } from 'lucide-react';
+import { Folder, FileText, UploadCloud, Search, MoreVertical, Plus, Trash2, Edit2, ExternalLink } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import './Documentation.css';
@@ -15,18 +15,18 @@ export default function Documentation() {
 
   useEffect(() => {
     const unsubCat = onSnapshot(collection(db, 'doc_categories'), (snapshot) => {
-      const catsData = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const catsData = snapshot.docs.map(d => ({ ...(d.data() as any), id: d.id }));
       catsData.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       setCategories(catsData);
     });
     const unsubFiles = onSnapshot(collection(db, 'doc_files'), (snapshot) => {
-      const files = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const files = snapshot.docs.map(d => ({ ...(d.data() as any), id: d.id }));
       // Ordenar do mais recente para o mais antigo (simulado)
       setRecentFiles(files.reverse());
       setLoadingData(false);
     });
     const unsubUnits = onSnapshot(collection(db, 'units'), (snapshot) => {
-      const unitsData = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const unitsData = snapshot.docs.map(d => ({ ...(d.data() as any), id: d.id }));
       unitsData.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       setAvailableUnits(unitsData);
     });

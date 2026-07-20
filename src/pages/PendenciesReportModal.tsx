@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { X, DownloadCloud, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { X, DownloadCloud } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { doc, getDoc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import './MandatoryDocReportModal.css';
 
 interface Props {
@@ -70,7 +70,6 @@ export default function PendenciesReportModal({ onClose, unitId, unitName }: Pro
   const [checklist, setChecklist] = useState(defaultChecklist);
   const [dataReport, setDataReport] = useState('');
   const [respName, setRespName] = useState('');
-  const [lastUpdated, setLastUpdated] = useState('');
   const [loading, setLoading] = useState(!!unitId);
 
   useEffect(() => {
@@ -91,8 +90,8 @@ export default function PendenciesReportModal({ onClose, unitId, unitName }: Pro
               }));
             }
             if (data.dataReport) setDataReport(data.dataReport);
+            if (data.dataReport) setDataReport(data.dataReport);
             if (data.respName) setRespName(data.respName);
-            if (data.lastUpdated) setLastUpdated(data.lastUpdated);
           }
         } catch (error) {
           console.error("Erro ao carregar documento:", error);
@@ -125,7 +124,6 @@ export default function PendenciesReportModal({ onClose, unitId, unitName }: Pro
   const handleSaveAndClose = async () => {
     if (unitId) {
       const now = new Date().toLocaleString('pt-BR');
-      setLastUpdated(now);
       const dataToSave = { checklist, dataReport, respName, lastUpdated: now };
       
       try {

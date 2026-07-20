@@ -8,9 +8,7 @@ import {
   FileText, 
   FolderOpen,
   Users,
-  LogOut,
-  Download,
-  Upload
+  LogOut
 } from 'lucide-react';
 import './Layout.css';
 
