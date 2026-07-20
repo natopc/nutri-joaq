@@ -13,7 +13,7 @@ import {
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import './Dashboard.css';
 
 export default function Dashboard() {
