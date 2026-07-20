@@ -1,0 +1,47 @@
+.training-page {
+  padding: 1rem;
+}
+
+.search-bar-container {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.training-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.video-container {
+  width: 100%;
+  background-color: #000;
+}
+
+.training-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.training-title {
+  font-family: var(--font-serif);
+  color: var(--text-dark);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.training-desc {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}

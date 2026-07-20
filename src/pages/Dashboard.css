@@ -1,0 +1,180 @@
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.kpi-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-icon.success { background-color: var(--color-success-bg); color: var(--color-success); }
+.kpi-icon.warning { background-color: var(--color-warning-bg); color: var(--color-warning); }
+.kpi-icon.info { background-color: var(--color-primary-light); color: var(--color-primary); }
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-trend {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.kpi-trend.success { color: var(--color-terracotta); } /* Using terracotta for positive trend to keep earthy palette */
+.kpi-trend.warning { color: var(--color-text-secondary); }
+.kpi-trend.info { color: var(--color-text-secondary); }
+
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.compliance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.compliance-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.unit-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 220px;
+}
+
+.progress-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background-color: var(--color-bg-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 1s ease-in-out;
+}
+
+.progress-fill.bg-good { background-color: var(--color-brown); }
+.progress-fill.bg-warning { background-color: var(--color-primary); }
+.progress-fill.bg-danger { background-color: var(--color-secondary); }
+
+.compliance-value {
+  width: 40px;
+  text-align: right;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.activity-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-icon.success { background-color: var(--color-success-bg); color: var(--color-success); }
+.activity-icon.warning { background-color: var(--color-warning-bg); color: var(--color-warning); }
+
+.activity-details h4 {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-primary);
+}
+
+.activity-details p {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
